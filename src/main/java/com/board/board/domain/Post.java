@@ -1,8 +1,7 @@
 package com.board.board.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 
 import java.util.List;
@@ -10,6 +9,9 @@ import java.util.List;
 @Entity
 @Getter
 @Setter
+@NoArgsConstructor
+@Builder
+@AllArgsConstructor
 public class Post {
 
     @Id
@@ -22,19 +24,19 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
+    @Column(name="like_count")
     private int likeCount;
 
-    private String filename;
+    private int view;
 
-    private String filepath;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<MemberLikePost> memberLikePosts;
 
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "writerId")
-    private Member writerId;
+    @ManyToOne(fetch = FetchType.LAZY, cascade =CascadeType.ALL)
+    @JoinColumn(name = "writer")
+    private Member writer;
 
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<Comment> comments;

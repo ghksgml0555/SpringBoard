@@ -1,33 +1,35 @@
 package com.board.board.domain;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
 @Entity
 @Getter
 @Setter
+@AllArgsConstructor
+@Builder
+@NoArgsConstructor
 public class Member {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true, name="login_id")
     private String loginId;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
+    @Column(nullable = false, unique = true)
     private String name;
 
     @Column(nullable = false)
     private String email;
 
-    @OneToMany(mappedBy = "writerId")
+    @OneToMany(mappedBy = "writer")
     private List<Post> post;
 
     @OneToMany(mappedBy = "member")
@@ -35,10 +37,6 @@ public class Member {
 
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
     private List<MemberLikePost> memberLikePosts;
-
-
-
-
 
 
 
