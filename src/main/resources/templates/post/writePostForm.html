@@ -13,10 +13,21 @@
 <body>
     <div class="container">
         <h6 style="text-align:right" th:text="|로그인: ${member.name}|">로그인 사용자 이름</h6>
-        <form role="form" action="/posts/write" th:object="${PostDto}" method="post">
+        <form role="form" action="/post/write" th:object="${PostDto}" method="post">
             <div class="form-group">
                 <label th:for="title">제목</label>
                 <input type="text" class="form-control" th:field="*{title}" placeholder="제목을 입력하세요">
+            </div>
+            <div class="form-group">
+                <label th:for="category">카테고리</label>
+                <select th:field="*{category}" class="form-control">
+                    <option value="">==카테고리 선택==</option>
+                    <option value="잡담">잡담</option>
+                    <option value="운동">운동</option>
+                    <option value="공부">공부</option>
+                    <option value="중고거래">중고거래</option>
+                </select>
+
             </div>
             <div class="form-group">
                 <label th:for="content">내용</label>

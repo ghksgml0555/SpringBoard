@@ -1,6 +1,5 @@
 package com.board.board.dto;
 
-import com.board.board.domain.Category;
 import com.board.board.domain.Member;
 import com.board.board.domain.Post;
 import lombok.AllArgsConstructor;
@@ -23,9 +22,8 @@ public class PostDto {
         private Member member;
 
         private Long member_id;
-        private Long category_id;
 
-        private Category category;
+        private String category;
         //dto > entity
         public Post toEntity(){
             Post post = Post.builder()
@@ -55,7 +53,7 @@ public class PostDto {
         private String writer;
         private int likeCount;
         private int view;
-        private Category category;
+        private String category;
 
         //entity > dto
         public Response(Post post){

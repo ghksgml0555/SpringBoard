@@ -34,4 +34,30 @@ public class PostService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional(readOnly = true)
+    public PostDto.Response findById(Long id){
+        Post post = postRepository.findById(id).orElseThrow(()->
+            new IllegalArgumentException("게시물이 존재하지 않음"));
+        return new PostDto.Response(post);
+    }
+
+    @Transactional
+    public int updateView(Long id){
+        return postRepository.updateView(id);
+    }
+
+    @Transactional
+    public void removePost(Long id){
+        postRepository.deleteById(id);
+    }
+
+    @Transactional
+    public void updatePost(Long id, String title, String content, String category){
+        Post post = postRepository.findById(id).orElseThrow(()->
+                new IllegalArgumentException("게시물이 존재하지 않음"));
+        post.setTitle(title);
+        post.setContent(content);
+        post.setCategory(category);
+    }
+
 }

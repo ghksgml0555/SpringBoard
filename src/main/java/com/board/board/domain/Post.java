@@ -24,25 +24,24 @@ public class Post {
     @Column(nullable = false)
     private String content;
 
+    private String category;
+
     @Column(name="like_count")
     private int likeCount;
 
     private int view;
 
 
+
     @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
     private List<MemberLikePost> memberLikePosts;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade =CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer")
     private Member writer;
 
-    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
     private List<Comment> comments;
-
-    @OneToOne(mappedBy = "post")
-    private Category category;
-
 
 }

@@ -11,7 +11,7 @@
 
 <div class="container">
 
-    <form role="form" action="/members/new" th:object="${memberDto}" method="post">
+    <form role="form" action="/member/new" th:object="${memberDto}" method="post">
         <div class="form-group">
             <label th:for="name">닉네임</label>
             <input type="text" th:field="*{name}" class="form-control"

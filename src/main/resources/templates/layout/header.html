@@ -120,7 +120,7 @@
 
 
             <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-                <li><a style="color: #2F4F4F" href="#" class="nav-link px-2 link-secondary">게시판</a></li>
+                <li><a style="color: #2F4F4F" href="/" class="nav-link px-2 link-secondary">게시판</a></li>
                 <li><a style="color: #2F4F4F" href="#" class="nav-link px-2">마이페이지</a></li>
                 <li><a style="color: #2F4F4F" href="#" class="nav-link px-2">Pricing</a></li>
                 <li><a style="color: #2F4F4F" href="#" class="nav-link px-2">FAQs</a></li>
@@ -131,7 +131,7 @@
             <div class="col-md-3 text-end">
                 <button th:if="${name}" onclick="location.href='/logout'" type="submit" formmethod="post" class="btn btn-outline-primary me-2">Logout</button>
                 <button th:if="!${name}" onclick="location.href='/login'" type="submit" class="btn btn-outline-primary me-2">Login</button>
-                <button onclick="location.href='/members/new'" type="button" class="btn btn-primary">Sign-up</button>
+                <button onclick="location.href='/member/new'" type="button" class="btn btn-primary">Sign-up</button>
             </div>
         </header>
     </div>

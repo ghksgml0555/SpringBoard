@@ -25,17 +25,17 @@ public class MemberController {
 
     private final MemberService memberService;
 
-    @GetMapping("/members/new")
+    @GetMapping("/member/new")
     public String createForm(Model model){
         model.addAttribute("memberDto", new MemberDto());
-        return "members/createMemberForm";
+        return "member/createMemberForm";
     }
 
-    @PostMapping("members/new")
+    @PostMapping("member/new")
     public String join(@ModelAttribute @Valid MemberDto memberDto,
                        BindingResult bindingResult){
         if(bindingResult.hasErrors()){
-            return "members/createMemberForm";
+            return "member/createMemberForm";
         }
         memberService.join(memberDto);
         return "redirect:/";

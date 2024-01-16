@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" >
+<head th:replace="layout/header :: header" >
+  <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <meta charset="UTF-8">
+  <title>SpringBoard</title>
+</head>
+<body>
+<div>
+  <table class="table table-horizontal">
+    <thead>
+    <tr>
+      <th th:text="${dto.title}"></th>
+      <th>카테고리 : [[${dto.category}]]</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>작성자 : [[${dto.writer}]]</td>
+      <td>조회수 : [[${dto.view}]]</td>
+      <td>좋아요수 : [[${dto.likeCount}]]</td>
+    </tr>
+    <tr>
+      <td th:text="${dto.content}"></td>
+    </tr>
+    </tbody> </table>
+  <div class="text-left">
+    <a th:href="@{/post/{post_id}/update (post_id=${dto.id})}"
+       th:if="${#strings.equals(dto.member_id, member.id)}"
+       role="button" class="btn btn-primary bi bi-pencil-fill"> 수정</a>
+    <a th:href="@{/post/read/{post_id}/remove (post_id=${dto.id})}"
+       th:if="${#strings.equals(dto.member_id, member.id)}"
+       role="button" class="btn btn-primary bi bi-pencil-fill"> 삭제</a>
+  </div>
+</div>
+</body>
+</html>

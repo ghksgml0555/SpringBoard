@@ -33,7 +33,7 @@ public class PostController {
         return "home";
     }
 
-    @GetMapping("/posts/write")
+    @GetMapping("/post/write")
     public String writeForm(@AuthenticationPrincipal UserDetails user, Model model){
         Member member = memberService.findByName(user.getUsername());
         model.addAttribute("member",member);
@@ -41,7 +41,7 @@ public class PostController {
         return "post/writePostForm";
     }
 
-    @PostMapping("/posts/write")
+    @PostMapping("/post/write")
     public String write(PostDto.Request dto,@AuthenticationPrincipal UserDetails user){
         Member member = memberService.findByName(user.getUsername());
         dto.setMember(member);
@@ -49,7 +49,43 @@ public class PostController {
         return "redirect:/";
     }
 
-    @GetMapping("/posts/read/{post_id}")
-    public String readPost(@PathVariable("post_id")Long postId)
+    @GetMapping("/post/read/{post_id}")
+    public String readPost(@PathVariable("post_id")Long postId,@AuthenticationPrincipal UserDetails user, Model model){
+        postService.updateView(postId);
+
+        Member member = memberService.findByName(user.getUsername());
+
+
+        PostDto.Response dto = postService.findById(postId);
+        model.addAttribute("dto", dto);
+        model.addAttribute("member",member);
+        return "/post/read";
+    }
+
+    @GetMapping("/post/read/{post_id}/remove")
+    public String removePost(@PathVariable("post_id")Long postId){
+        postService.removePost(postId);
+        return "redirect:/";
+    }
+
+    @GetMapping("/post/{post_id}/update")
+    public String updatePostForm(@PathVariable("post_id")Long postId, @AuthenticationPrincipal UserDetails user, Model model){
+        PostDto.Response dto = postService.findById(postId);
+        model.addAttribute("dto", dto);
+
+        return "/post/update";
+    }
+
+    @PostMapping("/post/{post_id}/update")
+    public String updatePost(PostDto.Request dto,@PathVariable("post_id")Long postId, Model model, @AuthenticationPrincipal UserDetails user){
+        postService.updatePost(postId, dto.getTitle(), dto.getContent(), dto.getCategory());
+        PostDto.Response ResponseDto = postService.findById(postId);
+
+        Member member = memberService.findByName(user.getUsername());
+        model.addAttribute("dto", ResponseDto);
+        model.addAttribute("member",member);
+        return "/post/read";
+    }
+        
 
 }
