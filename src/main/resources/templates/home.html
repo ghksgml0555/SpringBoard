@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:replace="layout/header :: header" />
+    <link rel="stylesheet" href="/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>SpringBoard</title>
+</head>
+<body>
+<div>
+    <table class="table table-horizontal">
+        <thead>
+        <tr>
+            <th>번호</th>
+            <th>제목</th>
+            <th>작성자</th>
+            <th>카테고리</th>
+            <th>조회수</th>
+            <th>좋아요 수</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="post : ${posts}">
+            <td th:text="${post.id}"></td>
+            <td th:text="${post.title}"></td>
+            <td th:text="${post.writer}"></td>
+            <td th:text="${post.category}"></td>
+            <td th:text="${post.view}"></td>
+            <td th:text="${post.likeCount}"></td>
+        </tr>
+        </tbody> </table>
+    <div class="text-right">
+        <a href="/posts/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
+    </div>
+</div>
+</body>
+</html>
