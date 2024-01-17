@@ -6,6 +6,8 @@ import com.board.board.dto.PostDto;
 import com.board.board.repository.MemberRepository;
 import com.board.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -60,4 +62,11 @@ public class PostService {
         post.setCategory(category);
     }
 
+    /**
+     * 페이징
+     */
+    @Transactional(readOnly = true)
+    public Page<Post> pageList(Pageable pageable){
+        return postRepository.findAll(pageable);
+    }
 }

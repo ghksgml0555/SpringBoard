@@ -7,14 +7,14 @@ import com.board.board.service.MemberService;
 import com.board.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @RequiredArgsConstructor
@@ -25,17 +25,21 @@ public class PostController {
     private final MemberService memberService;
 
     @GetMapping("/")
-    public String home(@AuthenticationPrincipal UserDetails user, Model model){
-        if(user != null){
-            model.addAttribute("name",user.getUsername());
+    public String home(@AuthenticationPrincipal UserDetails user, Model model,
+                       @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 5) Pageable pageable){
+        if(user != null) {
+            model.addAttribute("name", user.getUsername());
         }
-        model.addAttribute("posts",postService.findAll());
+
+        model.addAttribute("posts",postService.pageList(pageable));
+        //model.addAttribute("posts",postService.findAll());
         return "home";
     }
 
     @GetMapping("/post/write")
     public String writeForm(@AuthenticationPrincipal UserDetails user, Model model){
         Member member = memberService.findByName(user.getUsername());
+        model.addAttribute("name", user.getUsername());
         model.addAttribute("member",member);
         model.addAttribute("PostDto", new PostDto.Request());
         return "post/writePostForm";
@@ -53,12 +57,18 @@ public class PostController {
     public String readPost(@PathVariable("post_id")Long postId,@AuthenticationPrincipal UserDetails user, Model model){
         postService.updateView(postId);
 
-        Member member = memberService.findByName(user.getUsername());
-
+        if(user != null) {
+            Member member = memberService.findByName(user.getUsername());
+            model.addAttribute("member", member);
+            model.addAttribute("name", user.getUsername());
+        }
+        else{
+            Member admin = memberService.findByName("admin");
+            model.addAttribute("member", admin);
+        }
 
         PostDto.Response dto = postService.findById(postId);
         model.addAttribute("dto", dto);
-        model.addAttribute("member",member);
         return "/post/read";
     }
 
@@ -72,7 +82,7 @@ public class PostController {
     public String updatePostForm(@PathVariable("post_id")Long postId, @AuthenticationPrincipal UserDetails user, Model model){
         PostDto.Response dto = postService.findById(postId);
         model.addAttribute("dto", dto);
-
+        model.addAttribute("name", user.getUsername());
         return "/post/update";
     }
 

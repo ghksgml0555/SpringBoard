@@ -23,7 +23,7 @@
             <td th:text="${post.id}"></td>
             <td><a th:href="@{/post/read/{post_id} (post_id=${post.id})}"
                                         th:text="${post.title}"></a></td>
-            <td th:text="${post.writer}"></td>
+            <td th:text="${post.writer.getName()}"></td>
             <td th:text="${post.category}"></td>
             <td th:text="${post.view}"></td>
             <td th:text="${post.likeCount}"></td>
@@ -31,6 +31,15 @@
         </tbody> </table>
     <div class="text-right">
         <a href="/post/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
+    </div>
+    <div class="text-center">
+        <a th:href="@{|?page=${posts.number-1}|}"
+           th:classappend="${!posts.hasPrevious} ? 'disabled'"
+           role="button" class="btn btn-primary bi bi-pencil-fill"> <</a>
+        <a th:href="@{|?page=${posts.number+1}|}"
+           th:classappend="${!posts.hasNext} ? 'disabled'"
+           role="button" class="btn btn-primary bi bi-pencil-fill"> ></a>
+
     </div>
 </div>
 </body>
