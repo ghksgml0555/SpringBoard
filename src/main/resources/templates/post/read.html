@@ -32,6 +32,26 @@
        th:if="${#strings.equals(dto.member_id, member.id)}"
        role="button" class="btn btn-primary bi bi-pencil-fill"> 삭제</a>
   </div>
+  <p></p>
+  <div>
+    <table class="table table-horizontal">
+      <tbody>
+      <tr th:each="comment : ${comments}">
+        <td>작성자 : [[${comment.name}]]</td>
+        <td th:text="${comment.text}"></td>
+      </tr>
+      </tbody> </table>
+  </div>
+  <div class="container">
+    <form role="form" th:action="@{/post/{post_id}/comment (post_id=${postId})}" th:object="${CommentDto}" method="post">
+      <div class="form-group">
+        <label th:for="text">댓글</label>
+        <input type="text" class="form-control" th:field="*{text}" placeholder="댓글을 입력하세요">
+      </div>
+      <button type="submit" class="btn btn-primary">작성</button>
+    </form>
+  </div>
+
 </div>
 </body>
 </html>

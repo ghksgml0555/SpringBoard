@@ -2,7 +2,10 @@ package com.board.board.controller;
 
 import com.board.board.domain.Member;
 import com.board.board.domain.Post;
+import com.board.board.dto.CommentDto;
 import com.board.board.dto.PostDto;
+import com.board.board.service.CommentService;
+import com.board.board.service.MemberLikePostService;
 import com.board.board.service.MemberService;
 import com.board.board.service.PostService;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +19,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Controller
 @RequiredArgsConstructor
 @Slf4j
@@ -23,6 +28,8 @@ public class PostController {
 
     private final PostService postService;
     private final MemberService memberService;
+    private final MemberLikePostService memberLikePostService;
+    private final CommentService commentService;
 
     @GetMapping("/")
     public String home(@AuthenticationPrincipal UserDetails user, Model model,
@@ -68,9 +75,44 @@ public class PostController {
         }
 
         PostDto.Response dto = postService.findById(postId);
+        model.addAttribute("postId", postId);
         model.addAttribute("dto", dto);
+
+        /**
+         * 댓글
+         */
+        List<CommentDto.Response> comments = dto.getComments();
+        if (comments != null && !comments.isEmpty()) {
+            model.addAttribute("comments", comments);
+        }
+
+        model.addAttribute("CommentDto", new CommentDto.Request());
         return "/post/read";
     }
+
+    /**
+     * 댓글 작성
+     */
+    @PostMapping("/post/{post_id}/comment")
+    public String writeComment(@PathVariable("post_id")Long postId,
+                               CommentDto.Request dto,
+                               @AuthenticationPrincipal UserDetails user,
+                               Model model){
+        commentService.commentWrite(dto,postId,user);
+        PostDto.Response postDto = postService.findById(postId);
+        model.addAttribute("dto",postDto);
+        Member member = memberService.findByName(user.getUsername());
+        model.addAttribute("member", member);
+        model.addAttribute("postId", postId);
+        model.addAttribute("CommentDto", new CommentDto.Request());
+        List<CommentDto.Response> comments = postDto.getComments();
+        if (comments != null && !comments.isEmpty()) {
+            model.addAttribute("comments", comments);
+        }
+        return "/post/read";
+    }
+
+
 
     @GetMapping("/post/read/{post_id}/remove")
     public String removePost(@PathVariable("post_id")Long postId){

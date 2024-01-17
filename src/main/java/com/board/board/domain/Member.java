@@ -32,10 +32,10 @@ public class Member {
     @OneToMany(mappedBy = "writer")
     private List<Post> post;
 
-    @OneToMany(mappedBy = "member")
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<Comment> comment;
 
-    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "member", cascade = CascadeType.ALL)
     private List<MemberLikePost> memberLikePosts;
 
 

@@ -7,6 +7,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class PostDto {
 
     @Data
@@ -54,6 +57,7 @@ public class PostDto {
         private int likeCount;
         private int view;
         private String category;
+        private List<CommentDto.Response> comments;
 
         //entity > dto
         public Response(Post post){
@@ -65,6 +69,7 @@ public class PostDto {
             this.view = post.getView();
             this.likeCount = post.getLikeCount();
             this.category = post.getCategory();
+            this.comments = post.getComments().stream().map(CommentDto.Response::new).collect(Collectors.toList());
         }
     }
 }
