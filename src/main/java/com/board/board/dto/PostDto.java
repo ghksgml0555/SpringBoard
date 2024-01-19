@@ -20,7 +20,6 @@ public class PostDto {
         private Long id;
         private String title;
         private String content;
-        private int likeCount;
         private int view;
         private Member member;
 
@@ -33,7 +32,6 @@ public class PostDto {
                     .id(id)
                     .title(title)
                     .content(content)
-                    .likeCount(0)
                     .view(0)
                     .writer(member)
                     .category(category)
@@ -54,7 +52,6 @@ public class PostDto {
         private String title;
         private String content;
         private String writer;
-        private int likeCount;
         private int view;
         private String category;
         private List<CommentDto.Response> comments;
@@ -67,7 +64,6 @@ public class PostDto {
             this.content = post.getContent();
             this.writer = post.getWriter().getName();
             this.view = post.getView();
-            this.likeCount = post.getLikeCount();
             this.category = post.getCategory();
             this.comments = post.getComments().stream().map(CommentDto.Response::new).collect(Collectors.toList());
         }

@@ -26,16 +26,7 @@ public class Post {
 
     private String category;
 
-    @Column(name="like_count")
-    private int likeCount;
-
     private int view;
-
-
-
-    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL)
-    private List<MemberLikePost> memberLikePosts;
-
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "writer")
