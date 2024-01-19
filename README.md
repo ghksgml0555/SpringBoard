@@ -2,32 +2,54 @@
 
 SpringBoot+JPA를 공부하고 만든 게시판 프로젝트
 
-## 1. 프로젝트 기능
+## 1. 프로젝트 개요
 
-* 회원가입/로그인 기능
-* 게시글 작성/조회/수정/삭제 기능
-* 게시글에 댓글 작성 기능
-* 제목/카테고리별 검색 기능
-* 게시글 조회수 표시
-* 페이징 처리
+* 프로젝트 이름 : SpringBoard
+* 프로젝트 소개 : SpringBoot와 JPA를 공부하고 실제로 사용해보기 위해서 제작한 개인 프로젝트입니다.
 
+### 2. 개발환경
 
-### 3. 개발환경
-
-*백엔드
+* 백엔드
   JAVA 17
   SpringBoot 3.2.1
   JPA(Spring Data JPA)
   Spring Security
 
-*프론트엔드
+* 프론트엔드
   html/css
   thymeleaf
   bootstrap
 
-*database
+* database
   MariaDB
-### Installing
+
+## 3. 프로젝트 기능
+
+* 회원가입/로그인 기능
+   회원가입, 로그인시 유효성 검사를 수행한다.
+   로그인한 사용자는 화면 상단에 자신의 닉네임을 표시한다.
+   로그인 하지 않은 사용자는 글 검색, 글 조회만 가능하다.
+  
+* 게시글 작성/조회/수정/삭제 기능
+   게시글의 작성자만 수정, 삭제가 가능하다.
+  
+* 게시글에 댓글 작성 기능
+  
+* 제목/카테고리별 검색 기능
+   제목, 카테고리, 제목+카테고리 검색이 각각 가능하다.
+  
+* 게시글 조회수 표시
+  
+* 페이징 처리
+
+
+
+## 3. DB 구조
+![image](https://github.com/ghksgml0555/SpringBoard/assets/100823964/9e73d5c7-4a80-494b-967a-752ce1969442)
+
+
+  
+### 회원기능
 
 A step by step series of examples that tell you how to get a development env running
 
