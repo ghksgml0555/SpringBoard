@@ -1,19 +1,32 @@
-# Project Title
+# SpringBoard
 
-One Paragraph of project description goes here
+SpringBoot+JPA를 공부하고 만든 게시판 프로젝트
 
-## Getting Started
+## 1. 프로젝트 기능
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+* 회원가입/로그인 기능
+* 게시글 작성/조회/수정/삭제 기능
+* 게시글에 댓글 작성 기능
+* 제목/카테고리별 검색 기능
+* 게시글 조회수 표시
+* 페이징 처리
 
-### Prerequisites
 
-What things you need to install the software and how to install them
+### 3. 개발환경
 
-```
-Give examples
-```
+*백엔드
+  JAVA 17
+  SpringBoot 3.2.1
+  JPA(Spring Data JPA)
+  Spring Security
 
+*프론트엔드
+  html/css
+  thymeleaf
+  bootstrap
+
+*database
+  MariaDB
 ### Installing
 
 A step by step series of examples that tell you how to get a development env running
