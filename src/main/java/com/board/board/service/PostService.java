@@ -1,9 +1,7 @@
 package com.board.board.service;
 
-import com.board.board.domain.Member;
 import com.board.board.domain.Post;
 import com.board.board.dto.PostDto;
-import com.board.board.repository.MemberLikePostRepository;
 import com.board.board.repository.MemberRepository;
 import com.board.board.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
@@ -21,7 +19,6 @@ public class PostService {
 
     private final PostRepository postRepository;
     private final MemberRepository memberRepository;
-    private final MemberLikePostRepository memberLikePostRepository;
 
     @Transactional
     public Long write(PostDto.Request dto){
@@ -72,5 +69,19 @@ public class PostService {
         return postRepository.findAll(pageable);
     }
 
+    /**
+     * 검색
+     */
+    @Transactional
+    public Page<Post> search(String titleSearch,String searchCage, Pageable pageable){
+        if(searchCage==""){
+            Page<Post> posts = postRepository.findByTitleContaining(titleSearch, pageable);
+            return posts;
+        }
+        else {
+            Page<Post> posts = postRepository.findByTitleContainingAndCategory(titleSearch, searchCage,pageable);
+            return posts;
+        }
 
+    }
 }

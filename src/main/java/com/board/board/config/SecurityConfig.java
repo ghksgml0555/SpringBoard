@@ -28,7 +28,7 @@ public class SecurityConfig {
         http.csrf().disable().cors().disable()
                 .authorizeHttpRequests(request -> request
                         .dispatcherTypeMatchers(DispatcherType.FORWARD).permitAll()
-                        .requestMatchers("/","/member/new","/login/**","/logout","/css/**","/post/read/**").permitAll() //로그인하지않아도 허용하는 페이지
+                        .requestMatchers("/","/member/new","/login/**","/logout","/css/**","/post/read/**", "/post/search").permitAll() //로그인하지않아도 허용하는 페이지
                         .anyRequest().authenticated()
                 )
                 .formLogin(

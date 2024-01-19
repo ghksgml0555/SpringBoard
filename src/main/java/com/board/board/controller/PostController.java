@@ -5,11 +5,11 @@ import com.board.board.domain.Post;
 import com.board.board.dto.CommentDto;
 import com.board.board.dto.PostDto;
 import com.board.board.service.CommentService;
-import com.board.board.service.MemberLikePostService;
 import com.board.board.service.MemberService;
 import com.board.board.service.PostService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
@@ -28,7 +28,6 @@ public class PostController {
 
     private final PostService postService;
     private final MemberService memberService;
-    private final MemberLikePostService memberLikePostService;
     private final CommentService commentService;
 
     @GetMapping("/")
@@ -138,6 +137,22 @@ public class PostController {
         model.addAttribute("member",member);
         return "/post/read";
     }
-        
+
+    /**
+     * 검색
+     */
+    @GetMapping("post/search")
+    public String search(String keyword, String searchCage ,Model model,
+                         @AuthenticationPrincipal UserDetails user,
+                         @PageableDefault(sort="id", direction = Sort.Direction.DESC, size = 5) Pageable pageable){
+        if(user != null) {
+            model.addAttribute("name", user.getUsername());
+        }
+        model.addAttribute("searchCage", searchCage);
+        model.addAttribute("keyword", keyword);
+        Page<Post> searchResult = postService.search(keyword,searchCage ,pageable);
+        model.addAttribute("searchResult",searchResult);
+        return "/post/search";
+    }
 
 }

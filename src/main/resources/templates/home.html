@@ -15,7 +15,6 @@
             <th>작성자</th>
             <th>카테고리</th>
             <th>조회수</th>
-            <th>좋아요 수</th>
         </tr>
         </thead>
         <tbody>
@@ -26,9 +25,23 @@
             <td th:text="${post.writer.getName()}"></td>
             <td th:text="${post.category}"></td>
             <td th:text="${post.view}"></td>
-            <td th:text="${post.likeCount}"></td>
         </tr>
         </tbody> </table>
+    <div class="text-left">
+        <span>
+            <form action="/post/search" method="get">
+                <select style="width:200px; display:inline-block" id="searchCage" name="searchCage" class="form-control">
+                    <option value="">==카테고리 선택==</option>
+                    <option value="잡담">잡담</option>
+                    <option value="운동">운동</option>
+                    <option value="공부">공부</option>
+                    <option value="중고거래">중고거래</option>
+                </select>
+                <input style="width:150px; display:inline-block" type="text" class="form-control" id="keyword" name="keyword">
+                <button style="display:inline-block" type="submit" class="btn btn-primary">검색</button>
+            </form>
+        </span>
+            </div>
     <div class="text-right">
         <a href="/post/write" role="button" class="btn btn-primary bi bi-pencil-fill"> 글쓰기</a>
     </div>
