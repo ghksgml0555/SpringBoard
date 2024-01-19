@@ -31,6 +31,7 @@ SpringBoot+JPA를 공부하고 만든 게시판 프로젝트
   
 
 * database
+  
   MariaDB
 
   
