@@ -72,10 +72,6 @@ SpringBoot+JPA를 공부하고 만든 게시판 프로젝트
 ![image](https://github.com/ghksgml0555/SpringBoard/assets/100823964/d7e7fc48-92b9-4aa5-bc8f-bc776fc77232)
 
 
-    
-## 6. 마무리
-정말 많이 부족한 프로젝트지만 배운 기술들을 한번 써 본걸로 만족  
-API를 사용하는 방식으로 변경해볼 생각입니다.
 
 
 
